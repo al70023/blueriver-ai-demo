@@ -1,0 +1,45 @@
+{
+  "version": 1,
+  "skills": {
+    "qdrant-clients-sdk": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "141f4f633e3b60d94149f4bd573d6106ee2eb7ab070dc99249a221d173c01946"
+    },
+    "qdrant-deployment-options": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "336a854ae5601902a6ce98678c5200fb5bdbc9000d12160beb92d4f5744efd8c"
+    },
+    "qdrant-model-migration": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "9354dcdd3742ecbccdd86c59110f5f163adbd0b0e992d0bb0d267f2e429e1d77"
+    },
+    "qdrant-monitoring": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "af1ef5daa412e841d12330ae205b48f5372f696ddcffb2c90a8b937c923f9501"
+    },
+    "qdrant-performance-optimization": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "71747333cb540a5e6221c69cb768ad01c9952a8ce3e2175e065aaa2ee4d94cc5"
+    },
+    "qdrant-scaling": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "867f71ca70eed454678677f3c11de2eaafec2ff2dcdb5f0ac3d306826a26776b"
+    },
+    "qdrant-search-quality": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "724e4aa084f99e67dc7705c5be4eca21282193501272e96265f339ba32bdb148"
+    },
+    "qdrant-version-upgrade": {
+      "source": "qdrant/skills",
+      "sourceType": "github",
+      "computedHash": "6de173fddfb2a5260b0b7e58538024c23fb98e135cfed3f6dc9c981d4e703494"
+    }
+  }
+}
