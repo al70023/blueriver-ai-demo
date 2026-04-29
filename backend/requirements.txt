@@ -6,3 +6,4 @@ alembic
 python-dotenv 
 qdrant-client 
 pydantic-settings
+python-multipart
