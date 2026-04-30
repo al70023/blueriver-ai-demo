@@ -7,3 +7,5 @@ python-dotenv
 qdrant-client 
 pydantic-settings
 python-multipart
+pypdf
+sentence-transformers

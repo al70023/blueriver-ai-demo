@@ -1,8 +1,9 @@
 from logging.config import fileConfig
 
+import app.models  # type: ignore  # noqa: F401
 from alembic import context
-from app import models as _models  # type: ignore  # noqa: F401
-from app.db import Base, get_database_url
+from app.database.base import Base
+from app.database.session import get_database_url
 from sqlalchemy import engine_from_config, pool
 
 # this is the Alembic Config object, which provides

@@ -1,11 +1,7 @@
 from sqlalchemy import create_engine
-from sqlalchemy.orm import DeclarativeBase, sessionmaker
+from sqlalchemy.orm import sessionmaker
 
-from app.config import settings
-
-
-class Base(DeclarativeBase):
-    pass
+from app.core.config import settings
 
 
 def get_database_url() -> str:

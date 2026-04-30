@@ -1,5 +1,5 @@
-from app.config import settings
-from app.db import engine
+from app.core.config import settings
+from app.database.session import engine
 from fastapi import APIRouter
 from qdrant_client import QdrantClient
 from sqlalchemy import text
@@ -8,7 +8,7 @@ router = APIRouter(prefix="/health", tags=["health"])
 
 
 @router.get("")
-async def health():
+def health():
     result = {
         "api": "ok",
         "postgres": "unknown",
