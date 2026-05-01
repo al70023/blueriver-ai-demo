@@ -1,9 +1,10 @@
-from app.models.document import Document, DocumentChunk
-from app.services.chunking import chunk_text
-from app.services.embeddings import embed_texts
-from app.services.text_extraction import extract_text_from_upload
-from app.services.vector_store import upsert_chunk_vectors
 from sqlalchemy.orm import Session
+
+from app.models.document import Document, DocumentChunk
+from app.services.ai.embeddings import embed_texts
+from app.services.documents.chunking import chunk_text
+from app.services.documents.text_extraction import extract_text_from_upload
+from app.services.vector_store.qdrant import upsert_chunk_vectors
 
 
 def ingest_document(

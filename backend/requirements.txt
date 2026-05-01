@@ -9,3 +9,4 @@ pydantic-settings
 python-multipart
 pypdf
 sentence-transformers
+openai

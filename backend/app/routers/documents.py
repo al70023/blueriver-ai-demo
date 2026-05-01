@@ -1,14 +1,15 @@
-from app.database.session import get_db
-from app.models import Document, DocumentChunk
-from app.schemas.document import DocumentChunkOut, DocumentOut
-from app.services.document_ingestion import ingest_document
-from app.services.vector_store import (
-    COLLECTION_NAME,
-    get_qdrant_client,
-)
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from qdrant_client.models import FieldCondition, Filter, MatchValue
 from sqlalchemy.orm import Session
+
+from app.database.session import get_db
+from app.models import Document, DocumentChunk
+from app.schemas.document import DocumentChunkOut, DocumentOut
+from app.services.documents.ingestion import ingest_document
+from app.services.vector_store.qdrant import (
+    COLLECTION_NAME,
+    get_qdrant_client,
+)
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 

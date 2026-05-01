@@ -7,6 +7,8 @@ class Settings(BaseSettings):
     database_url: str
     qdrant_url: str
     n8n_base_url: str
+    openai_model: str = "gpt-4.1-mini"
+    openai_api_key: str | None = None
 
 
 settings = Settings()  # pyright: ignore[reportCallIssue]
