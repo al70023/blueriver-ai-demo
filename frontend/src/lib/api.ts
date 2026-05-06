@@ -1,9 +1,11 @@
 import type {
+  AnalyzeDocumentResponse,
   AskRequest,
   AskResponse,
   Document,
   DocumentChunk,
   HealthResponse,
+  SuggestedAction,
   VectorStatus,
 } from "../types";
 
@@ -78,4 +80,24 @@ export function askDocument(payload: AskRequest): Promise<AskResponse> {
     },
     body: JSON.stringify(payload),
   });
+}
+
+export function analyzeDocument(
+  documentId: number,
+  maxChunks = 12,
+): Promise<AnalyzeDocumentResponse> {
+  return request<AnalyzeDocumentResponse>("/review/analyze", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      document_id: documentId,
+      max_chunks: maxChunks,
+    }),
+  });
+}
+
+export function listReviewItems(documentId: number): Promise<SuggestedAction[]> {
+  return request<SuggestedAction[]>(`/review/documents/${documentId}/items`);
 }

@@ -46,3 +46,26 @@ export type AskResponse = {
   answer: string;
   citations: Citation[];
 };
+
+export type ReviewRisk = {
+  title: string;
+  description: string;
+  severity: string;
+  citation_chunk_ids: number[];
+};
+
+export type SuggestedAction = {
+  id: number;
+  title: string;
+  description: string;
+  severity: string;
+  status: string;
+  citation_chunk_ids: number[];
+};
+
+export type AnalyzeDocumentResponse = {
+  document_id: number;
+  summary: string;
+  risks: ReviewRisk[];
+  suggested_actions: SuggestedAction[];
+};

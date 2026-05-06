@@ -1,18 +1,29 @@
 import { useEffect, useMemo, useState } from "react";
 import { AnswerPanel } from "./components/AnswerPanel";
+import { AnalyzeDocument } from "./components/AnalyzeDocument";
 import { AskDocument } from "./components/AskDocument";
 import { CitationsPanel } from "./components/CitationsPanel";
 import { DocumentSelector } from "./components/DocumentSelector";
 import { HealthStatus } from "./components/HealthStatus";
+import { ReviewPanel } from "./components/ReviewPanel";
 import { UploadDocument } from "./components/UploadDocument";
 import {
+  analyzeDocument,
   askDocument,
   getHealth,
   getVectorStatus,
   listDocuments,
   uploadDocument,
 } from "./lib/api";
-import type { AskResponse, Document, HealthResponse, VectorStatus } from "./types";
+import type {
+  AnalyzeDocumentResponse,
+  AskResponse,
+  Document,
+  HealthResponse,
+  VectorStatus,
+} from "./types";
+
+type ResultMode = "ask" | "analysis";
 
 export default function App() {
   const [health, setHealth] = useState<HealthResponse | null>(null);
@@ -32,6 +43,11 @@ export default function App() {
   const [askLoading, setAskLoading] = useState(false);
   const [askError, setAskError] = useState<string | null>(null);
 
+  const [analysis, setAnalysis] = useState<AnalyzeDocumentResponse | null>(null);
+  const [isAnalyzing, setIsAnalyzing] = useState(false);
+  const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [resultMode, setResultMode] = useState<ResultMode>("ask");
+
   const selectedDocument = useMemo(
     () => documents.find((document) => document.id === selectedDocumentId) ?? null,
     [documents, selectedDocumentId],
@@ -50,6 +66,9 @@ export default function App() {
 
     setAskResponse(null);
     setAskError(null);
+    setAnalysis(null);
+    setAnalysisError(null);
+    setResultMode("ask");
     void loadVectorStatus(selectedDocumentId);
   }, [selectedDocumentId]);
 
@@ -111,6 +130,7 @@ export default function App() {
     setAskLoading(true);
     setAskError(null);
     setAskResponse(null);
+    setResultMode("ask");
 
     try {
       const response = await askDocument({
@@ -123,6 +143,27 @@ export default function App() {
       setAskError(error instanceof Error ? error.message : String(error));
     } finally {
       setAskLoading(false);
+    }
+  }
+
+  async function handleAnalyzeDocument() {
+    if (!selectedDocument) {
+      return;
+    }
+
+    setIsAnalyzing(true);
+    setAnalysisError(null);
+    setResultMode("analysis");
+
+    try {
+      const result = await analyzeDocument(selectedDocument.id);
+      setAnalysis(result);
+    } catch (error) {
+      setAnalysisError(
+        error instanceof Error ? error.message : "Failed to analyze document",
+      );
+    } finally {
+      setIsAnalyzing(false);
     }
   }
 
@@ -156,10 +197,29 @@ export default function App() {
             loading={askLoading}
             onAsk={handleAsk}
           />
+          <AnalyzeDocument
+            disabled={!selectedDocument}
+            loading={isAnalyzing}
+            onAnalyze={handleAnalyzeDocument}
+          />
         </div>
         <div className="right-column">
-          <AnswerPanel response={askResponse} error={askError} loading={askLoading} />
-          <CitationsPanel citations={askResponse?.citations ?? []} />
+          {resultMode === "analysis" ? (
+            <ReviewPanel
+              analysis={analysis}
+              error={analysisError}
+              loading={isAnalyzing}
+            />
+          ) : (
+            <>
+              <AnswerPanel
+                response={askResponse}
+                error={askError}
+                loading={askLoading}
+              />
+              <CitationsPanel citations={askResponse?.citations ?? []} />
+            </>
+          )}
         </div>
       </div>
     </main>
