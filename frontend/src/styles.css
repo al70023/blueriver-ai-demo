@@ -419,6 +419,22 @@ textarea {
   color: #465861;
 }
 
+.review-action-row {
+  align-items: center;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.review-action-row button {
+  min-height: 36px;
+}
+
+.automation-success {
+  color: #17683a;
+  font-weight: 700;
+}
+
 @media (max-width: 900px) {
   .top-grid,
   .work-grid {

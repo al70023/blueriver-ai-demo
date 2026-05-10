@@ -63,6 +63,21 @@ export type SuggestedAction = {
   citation_chunk_ids: number[];
 };
 
+export type ApproveReviewItemResponse = {
+  id: number;
+  document_id: number;
+  title: string;
+  description: string;
+  severity: string;
+  status: string;
+  webhook_result: {
+    sent: boolean;
+    reason?: string;
+    status_code?: number;
+    response?: string;
+  };
+};
+
 export type AnalyzeDocumentResponse = {
   document_id: number;
   summary: string;

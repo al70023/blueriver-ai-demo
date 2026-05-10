@@ -1,5 +1,6 @@
 import type {
   AnalyzeDocumentResponse,
+  ApproveReviewItemResponse,
   AskRequest,
   AskResponse,
   Document,
@@ -100,4 +101,12 @@ export function analyzeDocument(
 
 export function listReviewItems(documentId: number): Promise<SuggestedAction[]> {
   return request<SuggestedAction[]>(`/review/documents/${documentId}/items`);
+}
+
+export function approveReviewItem(
+  itemId: number,
+): Promise<ApproveReviewItemResponse> {
+  return request<ApproveReviewItemResponse>(`/review/items/${itemId}/approve`, {
+    method: "POST",
+  });
 }

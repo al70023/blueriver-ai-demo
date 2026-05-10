@@ -2,14 +2,22 @@ import type { AnalyzeDocumentResponse, ReviewRisk, SuggestedAction } from "../ty
 
 type ReviewPanelProps = {
   analysis: AnalyzeDocumentResponse | null;
+  approvedItemId: number | null;
+  approvalError: string | null;
+  approvingItemId: number | null;
   error: string | null;
   loading: boolean;
+  onApprove: (itemId: number) => Promise<void>;
 };
 
 export function ReviewPanel({
   analysis,
+  approvedItemId,
+  approvalError,
+  approvingItemId,
   error,
   loading,
+  onApprove,
 }: ReviewPanelProps) {
   return (
     <section className="panel review-panel" aria-labelledby="review-title">
@@ -19,6 +27,7 @@ export function ReviewPanel({
       </div>
 
       {error ? <p className="error-text">{error}</p> : null}
+      {approvalError ? <p className="error-text">{approvalError}</p> : null}
 
       {analysis ? (
         <div className="review-content">
@@ -51,7 +60,13 @@ export function ReviewPanel({
             {analysis.suggested_actions.length > 0 ? (
               <div className="review-list">
                 {analysis.suggested_actions.map((action) => (
-                  <ActionCard key={action.id} action={action} />
+                  <ActionCard
+                    action={action}
+                    approvedItemId={approvedItemId}
+                    approvingItemId={approvingItemId}
+                    key={action.id}
+                    onApprove={onApprove}
+                  />
                 ))}
               </div>
             ) : (
@@ -81,7 +96,20 @@ function RiskCard({ risk }: { risk: ReviewRisk }) {
   );
 }
 
-function ActionCard({ action }: { action: SuggestedAction }) {
+function ActionCard({
+  action,
+  approvedItemId,
+  approvingItemId,
+  onApprove,
+}: {
+  action: SuggestedAction;
+  approvedItemId: number | null;
+  approvingItemId: number | null;
+  onApprove: (itemId: number) => Promise<void>;
+}) {
+  const isApproved = action.status === "approved";
+  const isApproving = approvingItemId === action.id;
+
   return (
     <article className="review-card">
       <div className="review-card-header">
@@ -94,6 +122,22 @@ function ActionCard({ action }: { action: SuggestedAction }) {
       </div>
       <p>{action.description}</p>
       <CitationIds ids={action.citation_chunk_ids} />
+      <div className="review-action-row">
+        {isApproved ? (
+          <span className="automation-success">Sent to automation ✅</span>
+        ) : (
+          <button
+            type="button"
+            disabled={isApproving}
+            onClick={() => void onApprove(action.id)}
+          >
+            {isApproving ? "Approving..." : "Approve"}
+          </button>
+        )}
+        {approvedItemId === action.id && !isApproved ? (
+          <span className="automation-success">Sent to automation ✅</span>
+        ) : null}
+      </div>
     </article>
   );
 }

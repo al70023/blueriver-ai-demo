@@ -9,6 +9,7 @@ import { ReviewPanel } from "./components/ReviewPanel";
 import { UploadDocument } from "./components/UploadDocument";
 import {
   analyzeDocument,
+  approveReviewItem,
   askDocument,
   getHealth,
   getVectorStatus,
@@ -46,6 +47,9 @@ export default function App() {
   const [analysis, setAnalysis] = useState<AnalyzeDocumentResponse | null>(null);
   const [isAnalyzing, setIsAnalyzing] = useState(false);
   const [analysisError, setAnalysisError] = useState<string | null>(null);
+  const [approvingItemId, setApprovingItemId] = useState<number | null>(null);
+  const [approvedItemId, setApprovedItemId] = useState<number | null>(null);
+  const [approvalError, setApprovalError] = useState<string | null>(null);
   const [resultMode, setResultMode] = useState<ResultMode>("ask");
 
   const selectedDocument = useMemo(
@@ -68,6 +72,9 @@ export default function App() {
     setAskError(null);
     setAnalysis(null);
     setAnalysisError(null);
+    setApprovingItemId(null);
+    setApprovedItemId(null);
+    setApprovalError(null);
     setResultMode("ask");
     void loadVectorStatus(selectedDocumentId);
   }, [selectedDocumentId]);
@@ -153,6 +160,8 @@ export default function App() {
 
     setIsAnalyzing(true);
     setAnalysisError(null);
+    setApprovalError(null);
+    setApprovedItemId(null);
     setResultMode("analysis");
 
     try {
@@ -164,6 +173,40 @@ export default function App() {
       );
     } finally {
       setIsAnalyzing(false);
+    }
+  }
+
+  async function handleApproveReviewItem(itemId: number) {
+    setApprovingItemId(itemId);
+    setApprovalError(null);
+    setApprovedItemId(null);
+
+    try {
+      const approvedItem = await approveReviewItem(itemId);
+      setAnalysis((currentAnalysis) => {
+        if (!currentAnalysis) {
+          return currentAnalysis;
+        }
+
+        return {
+          ...currentAnalysis,
+          suggested_actions: currentAnalysis.suggested_actions.map((action) =>
+            action.id === itemId
+              ? {
+                  ...action,
+                  status: approvedItem.status,
+                }
+              : action,
+          ),
+        };
+      });
+      setApprovedItemId(itemId);
+    } catch (error) {
+      setApprovalError(
+        error instanceof Error ? error.message : "Failed to approve review item",
+      );
+    } finally {
+      setApprovingItemId(null);
     }
   }
 
@@ -207,8 +250,12 @@ export default function App() {
           {resultMode === "analysis" ? (
             <ReviewPanel
               analysis={analysis}
+              approvedItemId={approvedItemId}
+              approvalError={approvalError}
+              approvingItemId={approvingItemId}
               error={analysisError}
               loading={isAnalyzing}
+              onApprove={handleApproveReviewItem}
             />
           ) : (
             <>

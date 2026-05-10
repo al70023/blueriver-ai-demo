@@ -7,6 +7,7 @@ class Settings(BaseSettings):
     database_url: str
     qdrant_url: str
     n8n_base_url: str
+    n8n_webhook_url: str | None = None
     openai_model: str = "gpt-4.1-mini"
     openai_api_key: str | None = None
 
