@@ -193,7 +193,7 @@ A starter workflow that writes approved actions to a Google Sheet or Slack chann
 
 ## Evaluation
 
-The repo includes a small eval harness in [`evals/`](./evals). It runs a fixed set of question/expected-citation pairs against the system and reports retrieval accuracy.
+The repo includes a small eval harness in [`evals/`](./evals). It runs a fixed set of question/expected-citation pairs against the system and reports both retrieval quality and answer quality.
 
 ```bash
 cd evals
@@ -201,6 +201,8 @@ python run_evals.py
 ```
 
 Current baseline on the included sample corpus: see [`evals/README.md`](./evals/README.md).
+
+Current baseline: 19/20 retrieval pass rate (95%) and 15/20 answer pass rate (75%) using strict keyword matching. Manual spot-checking of the run found all 20 answers factually correct; the five answer misses were paraphrase mismatches such as `14-day` vs. `14 days` and `replacement` vs. `replace`. Median latency was 4.5 seconds, with a 5.2 second mean.
 
 ---
 

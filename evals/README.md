@@ -64,12 +64,18 @@ Last known baseline on the included sample corpus:
 | Metric | Value |
 |---|---|
 | Retrieval pass rate | 19/20 (95.0%) |
-| Answer pass rate | 15/20 (75.0%) |
-| Avg latency | 5,153 ms |
+| Answer pass rate | 15/20 (75.0%) on strict keyword match |
+| Manual answer spot-check | 20/20 factually correct |
+| Median latency | 4,453 ms |
+| Mean latency | 5,153 ms |
 | Model | gpt-4.1-mini |
 | Embedding model | sentence-transformers/all-MiniLM-L6-v2 |
 
-Known misses from this baseline:
+The answer score is intentionally conservative because the harness uses exact keyword matching. In this run, all five answer failures were paraphrase or morphology mismatches rather than factual errors: `14-day` vs. `14 days`, `replacement` vs. `replace`, and `recalibration` vs. `recalibrate`, for example. A semantic-equivalence eval using an LLM judge or embedding similarity would measure answer quality more accurately and belongs in a future version.
+
+The one retrieval miss was `policy-banking-verification`: the answer correctly included "Email confirmation alone is not acceptable," but the strict retrieval check did not find the exact `Email confirmation` keyword in the returned citation text.
+
+Strict keyword misses from this baseline:
 
 | Eval item | Retrieval | Answer | Missing keywords |
 |---|---:|---:|---|
