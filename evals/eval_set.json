@@ -1,0 +1,152 @@
+{
+  "version": "1.0",
+  "description": "Retrieval and Q&A eval set for the BlueRiver AI Review Desk demo. Each item has a question, the document it's about, and the keywords that should appear in any correct retrieval result. The harness checks whether retrieved chunks contain the expected keywords, not exact chunk IDs, because chunk IDs are not stable across re-ingestion.",
+  "documents": [
+    "vendor-policy.txt",
+    "invoice-acme-1042.txt",
+    "service-report-greenline.txt",
+    "meeting-ops-sync-week17.txt"
+  ],
+  "items": [
+    {
+      "id": "policy-coverage-amounts",
+      "question": "What are the minimum General Liability coverage amounts a vendor must carry?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["1,000,000", "per occurrence", "General Liability"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-aggregate-limit",
+      "question": "What is the required aggregate insurance limit for a vendor?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["2,000,000", "Aggregate"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-additional-insured",
+      "question": "Does BlueRiver need to be named as an additional insured on the vendor's policy?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["Additional Insured", "General Liability"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-tier-thresholds",
+      "question": "Who can approve an invoice between $10,001 and $50,000?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["Tier 3", "Department Head", "CFO"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-hold-conditions",
+      "question": "When must an invoice be placed in HOLD status?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["HOLD", "QuickBooks"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-emergency-window",
+      "question": "How long is the temporary approval window for emergency vendor engagements?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["14-day", "emergency"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-banking-verification",
+      "question": "How must vendor banking information be verified for ACH payments?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["callback", "phone", "Email confirmation"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "invoice-coi-status",
+      "question": "Does Acme Mechanical Services have a current Certificate of Insurance on file?",
+      "expected_document": "invoice-acme-1042.txt",
+      "expected_keywords": ["COI", "expired", "April 1"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "invoice-amount",
+      "question": "What is the total amount on invoice AMS-1042?",
+      "expected_document": "invoice-acme-1042.txt",
+      "expected_keywords": ["5,487.50", "TOTAL"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "invoice-po-reference",
+      "question": "What purchase order number does the Acme invoice reference?",
+      "expected_document": "invoice-acme-1042.txt",
+      "expected_keywords": ["BR-PO-2026-0341"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "service-report-customer-request",
+      "question": "What did Diana Pham request from BlueRiver during the Greenline service visit?",
+      "expected_document": "service-report-greenline.txt",
+      "expected_keywords": ["fifth rooftop unit", "May 15"],
+      "category": "action_extraction"
+    },
+    {
+      "id": "service-report-contactor",
+      "question": "What is the recommendation for the pitted contactor on compressor 1?",
+      "expected_document": "service-report-greenline.txt",
+      "expected_keywords": ["contactor", "replacement", "6-12 months"],
+      "category": "action_extraction"
+    },
+    {
+      "id": "service-report-economizer",
+      "question": "What is wrong with the economizer outside air sensor and what should be done?",
+      "expected_document": "service-report-greenline.txt",
+      "expected_keywords": ["sensor", "drift", "recalibration"],
+      "category": "action_extraction"
+    },
+    {
+      "id": "meeting-acme-escalation",
+      "question": "What is the escalation plan if Acme does not provide their updated COI by Friday?",
+      "expected_document": "meeting-ops-sync-week17.txt",
+      "expected_keywords": ["broker", "Friday"],
+      "category": "action_extraction"
+    },
+    {
+      "id": "meeting-dispatch-boundary",
+      "question": "What change is being made to the North and South dispatch territories, and who is writing it up?",
+      "expected_document": "meeting-ops-sync-week17.txt",
+      "expected_keywords": ["Jordan", "boundary", "Wednesday"],
+      "category": "action_extraction"
+    },
+    {
+      "id": "meeting-greenline-followup",
+      "question": "Who is responsible for following up with Diana Pham on the Greenline quote and what do they need to confirm?",
+      "expected_document": "meeting-ops-sync-week17.txt",
+      "expected_keywords": ["Erica", "scope", "capacity"],
+      "category": "action_extraction"
+    },
+    {
+      "id": "cross-document-invoice-approval",
+      "question": "Based on BlueRiver's vendor policy, can the Acme invoice AMS-1042 be approved for payment right now?",
+      "expected_document": "any",
+      "expected_keywords": ["COI", "expired", "HOLD"],
+      "category": "cross_document_reasoning"
+    },
+    {
+      "id": "policy-msa-requirement",
+      "question": "Does a vendor need a signed Master Services Agreement to be approved?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["Master Services Agreement", "MSA", "countersigned"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "policy-w9-requirement",
+      "question": "What tax form must a vendor have on file?",
+      "expected_document": "vendor-policy.txt",
+      "expected_keywords": ["W-9"],
+      "category": "factual_lookup"
+    },
+    {
+      "id": "service-report-customer-quote",
+      "question": "Was the customer satisfied with the service visit?",
+      "expected_document": "service-report-greenline.txt",
+      "expected_keywords": ["thorough", "Diana"],
+      "category": "factual_lookup"
+    }
+  ]
+}

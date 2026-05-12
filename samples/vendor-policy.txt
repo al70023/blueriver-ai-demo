@@ -1,0 +1,120 @@
+BLUERIVER FIELD SERVICES
+VENDOR ONBOARDING AND APPROVAL POLICY
+
+Document ID: POL-VND-001
+Version: 3.2
+Effective Date: January 15, 2026
+Owner: Operations Manager
+Review Cycle: Annual
+
+NOTE: This is a fictional document used as sample data for a portfolio
+demo (BlueRiver AI Review Desk). Any resemblance to real companies,
+vendors, or policies is coincidental.
+
+==============================================================================
+1. PURPOSE AND SCOPE
+==============================================================================
+
+This policy defines the requirements that must be satisfied before any
+external vendor is authorized to perform work on behalf of BlueRiver Field
+Services or before any vendor invoice is approved for payment. It applies
+to all vendors providing equipment, materials, subcontracted labor, or
+professional services to BlueRiver, regardless of contract size.
+
+==============================================================================
+2. VENDOR APPROVAL REQUIREMENTS
+==============================================================================
+
+A vendor must satisfy all of the following requirements before being
+classified as Approved Status in the vendor management system:
+
+2.1 W-9 ON FILE
+    A current IRS Form W-9 must be on file. The W-9 must match the legal
+    business name and tax identification number used on the vendor's
+    invoices.
+
+2.2 INSURANCE DOCUMENTATION
+    The vendor must provide a current Certificate of Insurance (COI) with
+    the following minimum coverage levels:
+
+      - General Liability:        $1,000,000 per occurrence
+      - Aggregate Limit:          $2,000,000
+      - Workers Compensation:     statutory limits per state of operation
+      - Auto Liability:           $1,000,000 combined single limit (vendors
+                                  operating vehicles on BlueRiver sites)
+
+    BlueRiver Field Services must be named as an Additional Insured on the
+    General Liability policy. The COI must list a current effective date
+    and an expiration date no less than thirty (30) days in the future at
+    the time of invoice approval.
+
+2.3 SIGNED MASTER SERVICES AGREEMENT
+    A countersigned Master Services Agreement (MSA) must be on file.
+    Purchase Orders or Statements of Work referencing the MSA may then
+    govern individual engagements.
+
+2.4 BANKING INFORMATION VERIFICATION
+    For ACH payments, banking information must be verified through a
+    callback to a known phone number on the vendor's W-9 or MSA. Email
+    confirmation alone is not acceptable due to documented vendor email
+    compromise risk in the industry.
+
+==============================================================================
+3. INVOICE APPROVAL REQUIREMENTS
+==============================================================================
+
+An invoice may be approved for payment only when ALL of the following
+conditions are met:
+
+3.1 Vendor must be in Approved Status (Section 2).
+3.2 Vendor's COI must be current and not expired.
+3.3 Invoice must reference a valid Purchase Order or Service Agreement.
+3.4 Work or materials referenced in the invoice must be confirmed received
+    by the assigned BlueRiver project owner.
+3.5 Invoice line items must match the Purchase Order within an acceptable
+    variance (5% on labor, 0% on materials unless documented in writing).
+
+If any of conditions 3.1 through 3.5 are not met, the invoice must be
+placed in HOLD status pending resolution. An invoice in HOLD status must
+not be entered into QuickBooks until the missing condition is satisfied.
+
+==============================================================================
+4. APPROVAL TIERS
+==============================================================================
+
+Invoices are approved according to the following tiers:
+
+  Tier 1 - up to $2,500       Operations Manager
+  Tier 2 - $2,501 - $10,000   Operations Manager + Department Head
+  Tier 3 - $10,001 - $50,000  Department Head + CFO
+  Tier 4 - over $50,000       CFO + CEO
+
+==============================================================================
+5. EXCEPTIONS
+==============================================================================
+
+Exceptions to any provision of this policy require written approval from
+the CFO. Exception approvals must be documented in the vendor management
+system with a reason code and an expiration date.
+
+Emergency vendor engagements (defined as work required to prevent imminent
+property damage, safety hazard, or material business disruption) may
+proceed under a temporary approval with a 14-day window to bring the
+vendor to full Approved Status. Any invoice resulting from emergency
+engagement must still satisfy Section 3 requirements before payment.
+
+==============================================================================
+6. REVIEW AND AUDIT
+==============================================================================
+
+The Operations Manager reviews vendor approval status quarterly. Any
+vendor whose insurance documentation expires within the next 30 days is
+flagged for COI renewal outreach. Vendors that fail to provide updated
+documentation are moved to HOLD status until documentation is received.
+
+The full vendor master is audited annually. Vendors with no activity in
+the prior 24 months are archived.
+
+==============================================================================
+END OF POLICY
+==============================================================================

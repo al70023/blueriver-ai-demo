@@ -1,0 +1,255 @@
+[
+  {
+    "id": "policy-coverage-amounts",
+    "question": "What are the minimum General Liability coverage amounts a vendor must carry?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "The minimum General Liability coverage amounts a vendor must carry are $1,000,000 per occurrence and $2,000,000 aggregate limit. This is specified in the insurance documentation requirements for vendor approval [chunk_id=39].",
+    "citation_count": 5,
+    "latency_ms": 7803
+  },
+  {
+    "id": "policy-aggregate-limit",
+    "question": "What is the required aggregate insurance limit for a vendor?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "The required aggregate insurance limit for a vendor is $2,000,000 [chunk_id=39].",
+    "citation_count": 5,
+    "latency_ms": 4320
+  },
+  {
+    "id": "policy-additional-insured",
+    "question": "Does BlueRiver need to be named as an additional insured on the vendor's policy?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": false,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [
+      "General Liability"
+    ],
+    "answer_text": "Yes, BlueRiver Field Services must be named as an Additional Insured on the vendor's Certificate of Insurance (COI) as part of the insurance documentation requirements for vendor approval [chunk_id=39].",
+    "citation_count": 5,
+    "latency_ms": 4361
+  },
+  {
+    "id": "policy-tier-thresholds",
+    "question": "Who can approve an invoice between $10,001 and $50,000?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": false,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [
+      "Tier 3"
+    ],
+    "answer_text": "An invoice between $10,001 and $50,000 can be approved by the Department Head and the CFO according to the approval tiers specified in the document [chunk_id=42].",
+    "citation_count": 5,
+    "latency_ms": 4403
+  },
+  {
+    "id": "policy-hold-conditions",
+    "question": "When must an invoice be placed in HOLD status?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "An invoice must be placed in HOLD status if any of the following conditions are not met: the vendor must be in Approved Status, the vendor's Certificate of Insurance (COI) must be current and not expired, the invoice must reference a valid Purchase Order or Service Agreement, the work or materials referenced in the invoice must be confirmed received by the assigned BlueRiver project owner, and the invoice line items must match the Purchase Order within an acceptable variance (5% on labor, 0% on materials unless documented in writing). An invoice in HOLD status must not be entered into QuickBooks until the missing condition is satisfied [chunk_id=41].",
+    "citation_count": 5,
+    "latency_ms": 5437
+  },
+  {
+    "id": "policy-emergency-window",
+    "question": "How long is the temporary approval window for emergency vendor engagements?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": false,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [
+      "14-day"
+    ],
+    "answer_text": "The temporary approval window for emergency vendor engagements is 14 days. During this time, the vendor must be brought to full Approved Status [chunk_id=42].",
+    "citation_count": 5,
+    "latency_ms": 5024
+  },
+  {
+    "id": "policy-banking-verification",
+    "question": "How must vendor banking information be verified for ACH payments?",
+    "category": "factual_lookup",
+    "retrieval_pass": false,
+    "answer_pass": true,
+    "missing_in_retrieval": [
+      "Email confirmation"
+    ],
+    "missing_in_answer": [],
+    "answer_text": "Vendor banking information for ACH payments must be verified through a callback to a known phone number on the vendor's W-9 or Master Services Agreement (MSA). Email confirmation alone is not acceptable due to documented vendor email compromise risk in the industry [chunk_id=40].",
+    "citation_count": 5,
+    "latency_ms": 4960
+  },
+  {
+    "id": "invoice-coi-status",
+    "question": "Does Acme Mechanical Services have a current Certificate of Insurance on file?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "Acme Mechanical Services does not have a current Certificate of Insurance on file. Their prior COI expired April 1, 2026, and an updated COI has been requested and will be forwarded separately when received [chunk_id=24].",
+    "citation_count": 4,
+    "latency_ms": 4503
+  },
+  {
+    "id": "invoice-amount",
+    "question": "What is the total amount on invoice AMS-1042?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "The total amount on invoice AMS-1042 is $5,487.50 [chunk_id=23].",
+    "citation_count": 4,
+    "latency_ms": 3781
+  },
+  {
+    "id": "invoice-po-reference",
+    "question": "What purchase order number does the Acme invoice reference?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "The Acme invoice references purchase order number BR-PO-2026-0341 [chunk_id=22].",
+    "citation_count": 4,
+    "latency_ms": 3884
+  },
+  {
+    "id": "service-report-customer-request",
+    "question": "What did Diana Pham request from BlueRiver during the Greenline service visit?",
+    "category": "action_extraction",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "Diana Pham, the customer site supervisor, requested a quote for adding a fifth rooftop unit on the south expansion roof to support the new logistics floor opening in Q3. She asked for the quote to be sent by May 15 for inclusion in their Q3 budget review [chunk_id=35].",
+    "citation_count": 5,
+    "latency_ms": 5065
+  },
+  {
+    "id": "service-report-contactor",
+    "question": "What is the recommendation for the pitted contactor on compressor 1?",
+    "category": "action_extraction",
+    "retrieval_pass": true,
+    "answer_pass": false,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [
+      "replacement"
+    ],
+    "answer_text": "The recommendation for the pitted contactor on compressor 1 is to replace the Y1 contactor at the next visit, as it is currently functional but expected to fail within 6-12 months at the current duty cycle [chunk_id=34].",
+    "citation_count": 5,
+    "latency_ms": 8197
+  },
+  {
+    "id": "service-report-economizer",
+    "question": "What is wrong with the economizer outside air sensor and what should be done?",
+    "category": "action_extraction",
+    "retrieval_pass": true,
+    "answer_pass": false,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [
+      "drift",
+      "recalibration"
+    ],
+    "answer_text": "The economizer outside air temperature sensor is reading approximately 4 degrees high relative to the handheld reference, causing the economizer to disengage earlier than optimal and increasing compressor runtime in mild weather. It is recommended to recalibrate or replace the sensor before the summer cooling season [chunk_id=34, chunk_id=35, chunk_id=36].",
+    "citation_count": 5,
+    "latency_ms": 8823
+  },
+  {
+    "id": "meeting-acme-escalation",
+    "question": "What is the escalation plan if Acme does not provide their updated COI by Friday?",
+    "category": "action_extraction",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "If Acme does not provide their updated COI by Friday, the escalation plan is to set up a call directly with their broker. Devon is tasked with escalating the issue today by sending another email and copying Robert's manager, and if the COI is still not received by Friday, the call with the broker will be arranged [chunk_id=27].",
+    "citation_count": 5,
+    "latency_ms": 6625
+  },
+  {
+    "id": "meeting-dispatch-boundary",
+    "question": "What change is being made to the North and South dispatch territories, and who is writing it up?",
+    "category": "action_extraction",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "The change being made is moving the Greenline Bayport site from the North to the South dispatch territory to reduce overlap around the Beltway corridor. Jordan is responsible for writing up the proposed boundary change and sending it around for review by Wednesday [chunk_id=30].",
+    "citation_count": 5,
+    "latency_ms": 4299
+  },
+  {
+    "id": "meeting-greenline-followup",
+    "question": "Who is responsible for following up with Diana Pham on the Greenline quote and what do they need to confirm?",
+    "category": "action_extraction",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "Erica Holloway is responsible for following up with Diana Pham on the Greenline quote. She needs to confirm the scope for the south expansion roof, specifically whether it is a like-for-like 25-ton unit or if a different capacity is needed for the logistics floor [chunk_id=28].",
+    "citation_count": 5,
+    "latency_ms": 4301
+  },
+  {
+    "id": "cross-document-invoice-approval",
+    "question": "Based on BlueRiver's vendor policy, can the Acme invoice AMS-1042 be approved for payment right now?",
+    "category": "cross_document_reasoning",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "No, the Acme invoice AMS-1042 cannot be approved for payment right now because the vendor's Certificate of Insurance (COI) on file expired April 1, 2026, and an updated COI has not yet been received. BlueRiver's policy requires a current COI that is not expired for invoice approval. Until the updated COI is provided, the invoice must be placed on HOLD status and cannot be entered into QuickBooks [chunk_id=22, chunk_id=24, chunk_id=41].",
+    "citation_count": 5,
+    "latency_ms": 4681
+  },
+  {
+    "id": "policy-msa-requirement",
+    "question": "Does a vendor need a signed Master Services Agreement to be approved?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "Yes, a vendor must have a countersigned Master Services Agreement (MSA) on file as part of the approval requirements before being classified as Approved Status in the vendor management system [chunk_id=40].",
+    "citation_count": 5,
+    "latency_ms": 4251
+  },
+  {
+    "id": "policy-w9-requirement",
+    "question": "What tax form must a vendor have on file?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "A vendor must have a current IRS Form W-9 on file. The W-9 must match the legal business name and tax identification number used on the vendor's invoices [chunk_id=39].",
+    "citation_count": 5,
+    "latency_ms": 4173
+  },
+  {
+    "id": "service-report-customer-quote",
+    "question": "Was the customer satisfied with the service visit?",
+    "category": "factual_lookup",
+    "retrieval_pass": true,
+    "answer_pass": true,
+    "missing_in_retrieval": [],
+    "missing_in_answer": [],
+    "answer_text": "Yes, the customer was satisfied with the service visit. The site representative, Diana Pham, commented that \"Marcus was thorough and explained the contactor issue clearly\" and requested prioritizing the economizer sensor before summer, indicating a positive experience [chunk_id=36].",
+    "citation_count": 5,
+    "latency_ms": 4167
+  }
+]

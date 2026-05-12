@@ -1,0 +1,81 @@
+INVOICE
+
+Acme Mechanical Services, Inc.
+4421 Industrial Boulevard, Suite 200
+Houston, TX 77032
+EIN: 47-XXXXXXX
+
+NOTE: This is a fictional invoice used as sample data for a portfolio
+demo (BlueRiver AI Review Desk). Acme Mechanical Services is not a real
+company. Any resemblance to actual vendors is coincidental.
+
+------------------------------------------------------------------------
+Bill To:                              Invoice Number:   AMS-1042
+                                      Invoice Date:     April 28, 2026
+BlueRiver Field Services              Due Date:         May 28, 2026
+Operations Department                 Payment Terms:    Net 30
+1850 Westheimer Road
+Houston, TX 77098
+------------------------------------------------------------------------
+
+PURCHASE ORDER:    BR-PO-2026-0341
+PROJECT:           Westheimer Plaza - Generator System Repair
+SERVICE LOCATION:  1850 Westheimer Road, Houston, TX 77098
+SERVICE DATE:      April 22, 2026
+
+------------------------------------------------------------------------
+LINE ITEMS
+------------------------------------------------------------------------
+
+  1. Emergency generator diagnostic and inspection
+     Labor: 4.0 hours @ $185/hr                          $    740.00
+
+  2. Replacement of failed automatic transfer switch
+     Part: Cummins ATS, model OTPC-225 (1 ea)            $  2,840.00
+     Labor: 6.5 hours @ $185/hr                          $  1,202.50
+
+  3. Load bank testing and recommissioning
+     Labor: 3.0 hours @ $185/hr                          $    555.00
+
+  4. Travel and mobilization (per MSA Section 4.2)       $    150.00
+
+                                                          -----------
+                                                  TOTAL:  $  5,487.50
+
+------------------------------------------------------------------------
+PAYMENT INSTRUCTIONS
+------------------------------------------------------------------------
+
+  Remit ACH to:
+    Bank:           Lone Star Commerce Bank
+    Routing:        XXX-XXX-XXX
+    Account:        XXXXXXXXXX
+    Reference:      Invoice AMS-1042
+
+  Or by check to:
+    Acme Mechanical Services, Inc.
+    4421 Industrial Boulevard, Suite 200
+    Houston, TX 77032
+
+------------------------------------------------------------------------
+DOCUMENTATION ATTACHED
+------------------------------------------------------------------------
+
+  [X]  Itemized service report
+  [X]  Photos of replaced ATS unit
+  [X]  Load bank test results
+  [ ]  Updated Certificate of Insurance  (NOT INCLUDED)
+
+  Note: Our prior COI on file with BlueRiver expired April 1, 2026.
+  Updated COI has been requested from our broker and will be forwarded
+  separately when received.
+
+------------------------------------------------------------------------
+
+Thank you for your business.
+
+Robert Carrillo
+Senior Account Manager
+Acme Mechanical Services, Inc.
+robert.carrillo@acmemechanical-fictional.example
+(713) XXX-XXXX

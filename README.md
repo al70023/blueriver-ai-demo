@@ -1,75 +1,120 @@
 # BlueRiver AI Review Desk
 
-AI-assisted document review desk for uploading business documents, asking citation-backed questions, generating structured review findings, and sending approved actions into automation workflows.
+> An AI-assisted document review system with citation-backed Q&A, structured analysis, and human approval before any automated action runs.
+
+---
+
+## The problem this solves
+
+BlueRiver Field Services is a 35-person operations company that manages equipment maintenance for commercial facilities. Every day they receive vendor invoices, technician service reports, customer emails, and meeting recordings — across Gmail, Drive, Airtable, Slack, and QuickBooks. The operations manager spends roughly 8 hours a week reading documents, summarizing what happened, deciding what needs follow-up, and creating tasks for the team.
+
+Generic AI tools didn't solve this. People were copy-pasting sensitive client data into ChatGPT. Answers sounded confident but were occasionally wrong, with no way to check. Nothing was logged. Nothing was approved before action.
+
+This system addresses that workflow head-on:
+
+- **Documents come in.** Upload PDFs, text files, or transcripts.
+- **AI summarizes and proposes actions.** Each suggested action is grounded in source citations from the original document.
+- **Humans approve before anything happens.** No automated action fires without explicit human review.
+- **Approved actions execute through n8n.** Once approved, the system pushes structured payloads to whatever downstream system the business uses (Slack, Airtable, QuickBooks, Google Sheets, CRM).
+- **Everything is logged.** Every AI call, every approval, every webhook is recorded in an audit trail.
+
+The result is the same speed gain a business gets from generic AI tools, with the source-grounding, control, and accountability they need to actually deploy it on real workflows.
+
+---
+
+## Design decisions
+
+A few of the architectural choices are worth calling out, because they're the difference between a tutorial RAG app and something a regulated business could actually operate.
+
+**Local embeddings instead of OpenAI's embedding API.** The system uses `sentence-transformers` running locally rather than `text-embedding-3-small`. Document content never leaves the host for the embedding step. Only the LLM call (which uses an OpenAI-compatible API) sends data out, and even that can be swapped to a local Ollama or vLLM endpoint without changing the application code. For businesses where document privacy matters more than embedding quality, this is the right tradeoff.
+
+**Human approval is in the critical path.** AI does not take action. AI proposes actions, attaches citations, and creates `review_items` with `status: open`. A human reviews and approves. Only then does the backend fire a webhook to n8n. This adds latency. It also eliminates the failure mode where a confidently-wrong AI output triggers a real-world consequence — the largest barrier to enterprise AI adoption right now.
+
+**Structured outputs from the LLM, not free-form text.** The `/review/analyze` endpoint expects the model to return a strict JSON shape: `summary`, `risks` (array of objects with severity and citation chunk IDs), `suggested_actions` (array with title, description, severity, citation chunk IDs). Free-form text is hard to render in a review UI and impossible to route reliably to downstream automation. Structured outputs make the rest of the system possible.
+
+**Citations point to chunk IDs, not page numbers.** Every AI answer references specific chunks retrieved from Qdrant, and the response includes the chunk text inline so the reviewer can verify the citation without leaving the screen. This is the trust layer. Without it, "the AI said so" is the only thing a reviewer has to go on.
+
+**Audit logs are a first-class table, not an afterthought.** `audit_logs` records every meaningful event: document uploaded, summary generated, question answered, review item created, review item approved, webhook sent. For any regulated buyer (legal, healthcare, finance), this table is non-negotiable.
+
+**n8n as the automation layer rather than direct integrations.** The backend doesn't own integrations to Slack, Airtable, QuickBooks, Gmail, or any other downstream tool. It fires a structured webhook to n8n, and n8n handles the integration breadth. This means a new client integration is an n8n workflow change, not a code change, and the backend stays focused on the AI/review logic.
+
+---
 
 ## Features
 
-- PDF/TXT upload
-- Text extraction and chunking
-- Postgres document/chunk storage
-- Local embeddings with sentence-transformers
-- Qdrant vector search
-- RAG Q&A with citations
-- Structured document analysis
-- Suggested review actions
-- Approve action -> n8n webhook
-- Audit logging
+- PDF and TXT upload with text extraction and chunking
+- Local embeddings via sentence-transformers (no document content sent to embedding API)
+- Qdrant vector search over indexed chunks
+- Citation-backed RAG Q&A — every answer references specific chunks the model used
+- Structured document analysis — summary, risks, suggested actions, all grounded in citations
+- Human-in-the-loop review queue with approve / reject states
+- Approved actions trigger an n8n webhook for downstream automation
+- Postgres-backed audit log of every AI call, approval, and automation event
+- `/health` and `/documents/{id}/vector-status` endpoints for operational visibility
+
+---
 
 ## Architecture
 
-Frontend: React/TypeScript  
-Backend: FastAPI  
-Database: Postgres  
-Vector DB: Qdrant  
-Automation: n8n  
-LLM: OpenAI  
-Embeddings: sentence-transformers
+**Frontend:** React + TypeScript (Vite)
+**Backend:** FastAPI (Python)
+**Database:** Postgres
+**Vector DB:** Qdrant
+**Embeddings:** sentence-transformers (local)
+**LLM:** OpenAI-compatible endpoint (defaults to OpenAI; swappable to Ollama or vLLM)
+**Automation:** n8n (self-hosted via Docker Compose)
 
-```text
+```
 React Frontend
-   |
-   | HTTP
-   v
+   │
+   │ HTTP
+   ▼
 FastAPI Backend
-   |
-   |-- Postgres
-   |     documents
-   |     document_chunks
-   |     review_items
-   |     audit_logs
-   |
-   |-- SentenceTransformer
-   |     chunk text -> embeddings
-   |
-   |-- Qdrant
-   |     semantic vector search over chunks
-   |
-   |-- OpenAI
-   |     citation-backed answers
-   |     structured document analysis
-   |
-   |-- n8n
-         approved action workflow
+   │
+   ├── Postgres
+   │     documents
+   │     document_chunks
+   │     review_items
+   │     audit_logs
+   │
+   ├── sentence-transformers
+   │     chunk text → embeddings (local, no external API)
+   │
+   ├── Qdrant
+   │     semantic vector search over chunks
+   │
+   ├── OpenAI-compatible LLM endpoint
+   │     citation-backed answers
+   │     structured document analysis
+   │
+   └── n8n
+         approved-action webhook → downstream automation
 ```
 
-## Demo Flow
+---
 
-1. Upload document
-2. Ask question
-3. View citations
-4. Analyze document
-5. Approve suggested action
-6. Send to automation webhook
+## Demo flow
 
-## Running Locally
+1. Upload a vendor policy PDF and a vendor invoice PDF.
+2. Ask: "Can this invoice be approved based on our vendor policy?"
+3. Review the answer, which cites both the policy and the invoice.
+4. Click **Analyze** on the invoice. The system returns a structured review: summary, risks (e.g. "missing insurance certificate"), and suggested actions (e.g. "request updated COI from Acme Vendor").
+5. Approve the suggested action.
+6. Watch the n8n workflow fire. Confirm the entry in the audit log.
 
-Run infrastructure, backend, and frontend in separate terminals.
+Sample documents are provided in [`samples/`](./samples) so you can run this flow without supplying your own.
 
-### 1. Start Local Infrastructure
+---
+
+## Running locally
+
+Three terminals: infrastructure, backend, frontend.
+
+### 1. Start infrastructure
 
 From the repo root:
 
-```powershell
+```bash
 cd infrastructure
 docker compose up -d
 ```
@@ -80,11 +125,9 @@ This starts:
 - Qdrant on `localhost:6333`
 - n8n on `localhost:5678`
 
-### 2. Configure Backend Environment
+### 2. Configure the backend
 
-Create `backend/.env` from `backend/.env.example`.
-
-For the default Docker Compose setup, use:
+Create `backend/.env` from `backend/.env.example`:
 
 ```env
 DATABASE_URL=postgresql+psycopg://alex:password@localhost:5432/blueriver
@@ -94,34 +137,22 @@ OPENAI_MODEL=gpt-4.1-mini
 N8N_WEBHOOK_URL=http://localhost:5678/webhook/blueriver-review-action
 ```
 
-If this is a fresh database, run migrations from `backend/`:
+Then run migrations:
 
-```powershell
+```bash
 cd backend
 alembic upgrade head
 ```
 
-### 3. Start Backend
+### 3. Start the backend
 
-From `backend/`:
-
-```powershell
+```bash
 uvicorn app.main:app --reload
 ```
 
-The API runs at:
+API at `http://localhost:8000`. Interactive docs at `http://localhost:8000/docs`. Health check at `http://localhost:8000/health`.
 
-```text
-http://localhost:8000
-```
-
-Health check:
-
-```text
-http://localhost:8000/health
-```
-
-### 4. Configure Frontend Environment
+### 4. Configure and start the frontend
 
 Create `frontend/.env` from `frontend/.env.example`:
 
@@ -129,187 +160,77 @@ Create `frontend/.env` from `frontend/.env.example`:
 VITE_API_BASE_URL=http://localhost:8000
 ```
 
-### 5. Start Frontend
+Then:
 
-From `frontend/`:
-
-```powershell
+```bash
+cd frontend
 npm install
 npm run dev
 ```
 
-The frontend runs at:
+Frontend at `http://localhost:5173`.
 
-```text
-http://localhost:5173
+### 5. Activate the n8n workflow
+
+Open n8n at `http://localhost:5678` and ensure a workflow exists with a webhook trigger at:
+
 ```
-
-### 6. Enable n8n Workflow
-
-Open n8n at:
-
-```text
-http://localhost:5678
-```
-
-Make sure the workflow for the review approval webhook is active or actively listening for test executions.
-
-The backend sends approved review items to:
-
-```text
 POST http://localhost:5678/webhook/blueriver-review-action
 ```
 
-### 7. Demo Checklist
+A starter workflow that writes approved actions to a Google Sheet or Slack channel is recommended.
 
-1. Open the frontend.
-2. Upload a PDF or TXT document.
-3. Ask a question and review the citation-backed answer.
-4. Analyze the document.
-5. Approve a suggested action.
-6. Confirm the item status changes to `approved`.
-7. Confirm n8n receives the webhook execution.
+### 6. Run the demo
 
-## API Reference
+1. Upload `samples/vendor-policy.pdf` and `samples/invoice-acme-1042.pdf` from the [samples directory](./samples).
+2. Ask: _"Can the Acme Vendor invoice be approved based on our vendor policy?"_
+3. Review the cited answer.
+4. Click **Analyze** on the invoice.
+5. Approve the suggested action ("Request updated COI from Acme Vendor").
+6. Confirm the n8n workflow fires and the audit log records the event.
 
-Base URL:
+---
 
-```text
-http://localhost:8000
+## Evaluation
+
+The repo includes a small eval harness in [`evals/`](./evals). It runs a fixed set of question/expected-citation pairs against the system and reports retrieval accuracy.
+
+```bash
+cd evals
+python run_evals.py
 ```
 
-FastAPI interactive docs are available at:
+Current baseline on the included sample corpus: see [`evals/README.md`](./evals/README.md).
 
-```text
-http://localhost:8000/docs
-```
+---
+
+## API reference
+
+Base URL: `http://localhost:8000`. Interactive docs: `http://localhost:8000/docs`.
 
 ### Health
 
-#### `GET /health`
-
-Checks API, Postgres, and Qdrant connectivity.
-
-Example response:
+`GET /health` — checks API, Postgres, and Qdrant connectivity.
 
 ```json
-{
-  "api": "ok",
-  "postgres": "ok",
-  "qdrant": "ok"
-}
+{"api": "ok", "postgres": "ok", "qdrant": "ok"}
 ```
 
 ### Documents
 
-#### `POST /documents/upload`
+`POST /documents/upload` — multipart file upload. Extracts text, chunks, embeds, indexes.
 
-Uploads a `.pdf` or `.txt` document. The backend extracts text, chunks it, stores chunks in Postgres, creates embeddings, and stores vectors in Qdrant.
+`GET /documents` — lists uploaded documents, newest first.
 
-Request:
+`GET /documents/{id}/chunks` — lists extracted chunks.
 
-- Content type: `multipart/form-data`
-- Field: `file`
-
-Example response:
-
-```json
-{
-  "id": 1,
-  "filename": "example.pdf",
-  "created_at": "2026-05-09T12:00:00"
-}
-```
-
-#### `GET /documents`
-
-Lists uploaded documents, newest first.
-
-Example response:
-
-```json
-[
-  {
-    "id": 1,
-    "filename": "example.pdf",
-    "created_at": "2026-05-09T12:00:00"
-  }
-]
-```
-
-#### `GET /documents/{document_id}/chunks`
-
-Lists extracted chunks for a document.
-
-Example response:
-
-```json
-[
-  {
-    "id": 10,
-    "document_id": 1,
-    "chunk_index": 0,
-    "text": "Chunk text...",
-    "created_at": "2026-05-09T12:00:00"
-  }
-]
-```
-
-#### `GET /documents/{document_id}/vector-status`
-
-Compares Postgres chunk count with Qdrant vector count for a document.
-
-Example response:
-
-```json
-{
-  "document_id": 1,
-  "filename": "example.pdf",
-  "postgres_chunk_count": 8,
-  "qdrant_vector_count": 8,
-  "in_sync": true
-}
-```
+`GET /documents/{id}/vector-status` — compares Postgres chunk count with Qdrant vector count.
 
 ### Search and Q&A
 
-#### `POST /search`
+`POST /search` — semantic search against indexed chunks.
 
-Runs semantic search against document chunks. If `document_id` is omitted, search can run across indexed chunks.
-
-Request body:
-
-```json
-{
-  "query": "What are the eligibility requirements?",
-  "document_id": 1,
-  "limit": 5
-}
-```
-
-Example response:
-
-```json
-{
-  "query": "What are the eligibility requirements?",
-  "matches": [
-    {
-      "chunk_id": 10,
-      "document_id": 1,
-      "filename": "example.pdf",
-      "chunk_index": 0,
-      "score": 0.82,
-      "text": "Relevant chunk text..."
-    }
-  ]
-}
-```
-
-#### `POST /ask`
-
-Asks an LLM-backed question using retrieved chunks as context. Returns an answer plus citations.
-
-Request body:
+`POST /ask` — RAG Q&A. Returns answer plus citations.
 
 ```json
 {
@@ -319,136 +240,37 @@ Request body:
 }
 ```
 
-Example response:
-
-```json
-{
-  "question": "What obligations does this document create?",
-  "answer": "The document states...",
-  "citations": [
-    {
-      "chunk_id": 10,
-      "document_id": 1,
-      "filename": "example.pdf",
-      "chunk_index": 0,
-      "score": 0.82,
-      "text": "Cited chunk text..."
-    }
-  ]
-}
-```
+Response includes `answer` and a `citations` array with chunk IDs, scores, and chunk text.
 
 ### Review
 
-#### `POST /review/analyze`
+`POST /review/analyze` — generates a structured review (summary, risks, suggested actions) for a document.
 
-Generates a structured review for a document, including summary, risks, and suggested actions.
+`GET /review/documents/{id}/items` — lists saved suggested actions.
 
-Request body:
-
-```json
-{
-  "document_id": 1,
-  "max_chunks": 12
-}
-```
-
-Example response:
-
-```json
-{
-  "document_id": 1,
-  "summary": "Brief document summary...",
-  "risks": [
-    {
-      "title": "Missing deadline detail",
-      "description": "The document references a deadline but does not define it clearly.",
-      "severity": "medium",
-      "citation_chunk_ids": [10]
-    }
-  ],
-  "suggested_actions": [
-    {
-      "id": 3,
-      "title": "Confirm deadline",
-      "description": "Ask the document owner to confirm the required deadline.",
-      "severity": "medium",
-      "status": "open",
-      "citation_chunk_ids": [10]
-    }
-  ]
-}
-```
-
-#### `GET /review/documents/{document_id}/items`
-
-Lists saved suggested review actions for a document.
-
-Example response:
-
-```json
-[
-  {
-    "id": 3,
-    "document_id": 1,
-    "title": "Confirm deadline",
-    "description": "Ask the document owner to confirm the required deadline.",
-    "severity": "medium",
-    "status": "open",
-    "citation_chunk_ids": [10]
-  }
-]
-```
-
-#### `POST /review/items/{item_id}/approve`
-
-Approves a suggested action, sends it to the configured n8n webhook, writes an audit log, and returns the updated item.
-
-Example response:
-
-```json
-{
-  "id": 3,
-  "document_id": 1,
-  "title": "Confirm deadline",
-  "description": "Ask the document owner to confirm the required deadline.",
-  "severity": "medium",
-  "status": "approved",
-  "webhook_result": {
-    "sent": true,
-    "status_code": 200,
-    "response": "OK"
-  }
-}
-```
-
-If `N8N_WEBHOOK_URL` is not configured, the backend returns a successful approval with:
-
-```json
-{
-  "webhook_result": {
-    "sent": false,
-    "reason": "N8N_WEBHOOK_URL is not configured."
-  }
-}
-```
+`POST /review/items/{id}/approve` — approves a suggested action, fires the n8n webhook, logs the event.
 
 ### Audit
 
-#### `GET /audit/logs`
+`GET /audit/logs` — returns the 50 most recent audit log entries.
 
-Lists the 50 most recent audit log entries.
+---
 
-Example response:
+## What's not yet built
 
-```json
-[
-  {
-    "id": 1,
-    "action": "review_item_approved",
-    "entity_type": "review_item",
-    "entity_id": 3,
-    "created_at": "2026-05-09T12:00:00"
-  }
-]
-```
+This is a v1 demo. For a real client engagement, the following would be added based on the buyer's specific requirements:
+
+- **Local LLM mode.** A `MODEL_PROVIDER=local` setting that routes LLM calls to a local Ollama or vLLM endpoint instead of OpenAI, for clients whose data must not leave their infrastructure.
+- **Audio transcription.** Upload meeting recordings, run faster-whisper locally, generate a structured summary with action items.
+- **Role-based access control.** Reviewer vs. approver roles, multi-tenant workspaces.
+- **Hybrid mode with redaction.** Local extraction of sensitive fields, redacted payload sent to cloud LLM for higher-quality reasoning, recombined locally.
+- **Production observability.** Langfuse for LLM tracing and prompt versioning, Grafana for system metrics.
+- **Eval expansion.** Larger question/citation eval set, regression checks in CI, hallucination detection.
+
+---
+
+## License
+
+MIT — see [`LICENSE`](./LICENSE).
+
+---

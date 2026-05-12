@@ -1,0 +1,129 @@
+MEETING TRANSCRIPT
+
+NOTE: This is a fictional meeting transcript used as sample data for a
+portfolio demo (BlueRiver AI Review Desk). All participants are
+illustrative.
+
+==============================================================================
+HEADER
+==============================================================================
+
+Meeting:        Operations Sync - Week 17
+Date:           April 27, 2026
+Time:           09:00 - 09:34 CT
+Attendees:      Sara Bennett (Operations Manager)
+                Jordan Yates (Field Supervisor, North)
+                Devon Park (Field Supervisor, South)
+                Erica Holloway (Customer Success)
+                Marcus Reilly (Senior Tech, joined at 09:11)
+
+==============================================================================
+TRANSCRIPT
+==============================================================================
+
+[09:00] Sara: Okay let's get started, we have about thirty minutes. I
+want to cover the Westheimer Plaza follow-up, the Greenline expansion
+quote, the COI situation with Acme, and one staffing thing. Anything
+else before we dive in?
+
+[09:00] Jordan: I have one thing on dispatch routing for next week, can
+fit it at the end.
+
+[09:01] Sara: Good. So Westheimer first. The generator repair finished
+last Tuesday, invoice came in from Acme on Monday. Robert flagged that
+their COI expired April 1, they're working on getting the updated one.
+Devon, has anything come over from their broker yet?
+
+[09:01] Devon: Nothing yet. I sent a follow-up to Robert yesterday
+afternoon, no response so far.
+
+[09:02] Sara: We can't approve the invoice until we have a current COI
+on file. That's a hard rule. Can you escalate today, and if we don't
+have it by Friday I want a call set up with their broker directly.
+
+[09:02] Devon: Got it. I'll send another email this morning and copy
+Robert's manager.
+
+[09:03] Sara: Good. Erica, on Greenline - Marcus's report from
+yesterday mentioned Diana wants a quote for a fifth rooftop unit by
+May 15 for their Q3 budget. Can your team get that turned around?
+
+[09:03] Erica: Yes. I saw the report this morning. I'll need scope
+confirmation from Diana on the south expansion roof. Is it a like-for-
+like 25-ton or do they need different capacity for the logistics
+floor?
+
+[09:04] Sara: That's a good question, we should ask before quoting.
+Can you set up a call with Diana this week?
+
+[09:04] Erica: I'll reach out today.
+
+[09:05] Sara: Thanks. Now the Acme situation more broadly. This is the
+second time in eighteen months their COI has lapsed without proactive
+notice from them. I want us to put them on a watch list and reconsider
+their preferred status at the next quarterly review.
+
+[09:05] Jordan: Agreed. They do good work but the admin side is sloppy.
+
+[09:06] Sara: Devon, can you make sure that's documented in the vendor
+notes when you handle this round?
+
+[09:06] Devon: Will do.
+
+[09:07] Sara: Staffing. We have an opening on the South team since
+Hector moved to North two weeks ago. I want to fill it before we hit
+summer. HR has three candidates, I'll have first interviews this week
+and shortlist by next Friday. Devon, I'd like you on the second round.
+
+[09:07] Devon: Sounds good, send me the times.
+
+[09:08] Sara: Anything else? Erica, anything from CS side?
+
+[09:08] Erica: One quick item. I had two customers ask this week
+whether we offer any kind of preventive maintenance reporting that
+shows trends over time, like "is this unit getting worse, what should
+I expect next year." Right now we deliver each visit's report in
+isolation. If we could compile a quarterly summary across visits I
+think it would be valuable.
+
+[09:09] Sara: That's interesting. Let's not commit to anything yet, but
+park it on the strategic list. Maybe we revisit at the May ops review.
+
+[09:09] Erica: Sounds good.
+
+[09:10] Sara: Jordan, you had something on dispatch?
+
+[09:10] Jordan: Yeah, just want to flag that we're hitting more
+overlap between the North and South routes around the Beltway corridor
+than we should be. Trucks are crossing each other. I think we need to
+redraw the boundary line.
+
+[09:11] Sara: Agreed. Marcus, since you cover both areas - any thoughts?
+
+[09:11] Marcus: (joined) Sorry, signal in the parking lot. What was the
+question?
+
+[09:12] Sara: Boundary between North and South dispatch territories,
+we're seeing too much overlap on the Beltway.
+
+[09:12] Marcus: Yeah, it's been worse since Greenline opened the
+Bayport site. That's geographically South but historically a North
+account because we've serviced them since 2019.
+
+[09:13] Jordan: I'd rather just move Greenline to South and clean up
+the boundary based on actual geography.
+
+[09:13] Devon: Fine with me, we have capacity.
+
+[09:13] Sara: Okay let's do that. Jordan, can you write up the proposed
+boundary change and send it around by Wednesday for review?
+
+[09:14] Jordan: Yes.
+
+[09:14] Sara: Anything else? Okay, that's it. Thanks everyone.
+
+[09:14] Meeting ended.
+
+==============================================================================
+END OF TRANSCRIPT
+==============================================================================

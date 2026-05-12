@@ -1,0 +1,117 @@
+FIELD SERVICE REPORT
+
+NOTE: This is a fictional service report used as sample data for a
+portfolio demo (BlueRiver AI Review Desk). All names, locations, and
+equipment details are illustrative.
+
+==============================================================================
+REPORT HEADER
+==============================================================================
+
+Report Number:        FSR-2026-0214
+Report Date:          April 25, 2026
+Submitted By:         Marcus Reilly, Senior Field Technician
+Customer:             Greenline Logistics
+Site:                 Greenline Distribution Center #4
+                      9820 Bayport Loop, La Porte, TX 77571
+Service Date:         April 24, 2026
+Arrival Time:         07:42
+Departure Time:       15:18
+Service Order:        SO-2026-1188
+
+==============================================================================
+EQUIPMENT SERVICED
+==============================================================================
+
+Asset ID:             GLDC4-HVAC-RTU-08
+Equipment:            Carrier 50TC 25-ton rooftop unit
+Serial:               4818-XXXXXXX
+Last Service:         October 14, 2025
+Hours Since Service:  approximately 4,540
+
+==============================================================================
+WORK PERFORMED
+==============================================================================
+
+Quarterly preventive maintenance per BlueRiver SOP HVAC-PM-RT.
+
+  - Replaced both filter banks (MERV 13, 24x24x4)
+  - Cleaned condenser coil, washed with approved coil cleaner
+  - Inspected and tightened all electrical connections in unit disconnect
+    and main control panel
+  - Checked refrigerant pressures: high side 295 psi, low side 68 psi
+    (within manufacturer spec for ambient 78 F)
+  - Lubricated condenser fan motor bearings
+  - Verified thermostat calibration against handheld reference
+  - Tested economizer operation, confirmed proper damper modulation
+  - Inspected belt drive on supply fan, no visible wear, proper tension
+  - Cleared condensate drain pan and verified drain line flow
+
+==============================================================================
+ISSUES IDENTIFIED
+==============================================================================
+
+1. CONTACTOR PITTING - COMPRESSOR 1
+   The Y1 contactor for compressor 1 shows visible pitting on the load
+   side contacts. Unit is currently functional but contactor will fail
+   within an estimated 6-12 months at current duty cycle. Recommend
+   replacement at next visit.
+
+2. CONDENSATE PAN CORROSION
+   Galvanized condensate pan shows surface rust along the south edge.
+   No active leak, but corrosion will progress. Recommend pan
+   replacement or sealing within the next 90 days.
+
+3. ECONOMIZER OUTSIDE AIR SENSOR DRIFT
+   The outside air temperature sensor on the economizer is reading
+   approximately 4 degrees high relative to handheld reference. This
+   causes the economizer to disengage earlier than optimal, increasing
+   compressor runtime in mild weather. Recommend sensor recalibration
+   or replacement before summer cooling season.
+
+4. CUSTOMER REQUEST - ADDITIONAL UNIT
+   Customer site supervisor (Diana Pham) requested a quote for adding
+   a fifth rooftop unit on the south expansion roof to support the new
+   logistics floor opening in Q3. She asked us to send the quote by
+   May 15 so it can be included in their Q3 budget review. Diana's
+   contact: diana.pham@greenline-fictional.example, (713) XXX-XXXX.
+
+==============================================================================
+PARTS USED
+==============================================================================
+
+  Filter, MERV 13, 24x24x4              quantity 4         BR-FLT-0024
+  Coil cleaner, Nu-Calgon Evap Foam     quantity 1 gallon  BR-CHM-0103
+  Belt, A-section, A48                  quantity 0 (no replacement needed)
+
+==============================================================================
+FOLLOW-UP REQUIRED
+==============================================================================
+
+  - Quote for fifth rooftop unit installation (due to customer May 15)
+  - Schedule contactor replacement within 9 months
+  - Schedule condensate pan repair within 90 days
+  - Schedule economizer sensor recalibration before June 1
+
+==============================================================================
+CUSTOMER SIGN-OFF
+==============================================================================
+
+Site representative:    Diana Pham, Site Supervisor
+Sign-off time:          15:14
+Customer comments:      "Marcus was thorough and explained the contactor
+                        issue clearly. Please prioritize the economizer
+                        sensor before we hit summer."
+
+==============================================================================
+TECHNICIAN NOTES
+==============================================================================
+
+Site access was straightforward. Greenline has reliable lockout/tagout
+procedures and the electrical disconnect was properly labeled. Travel
+time from previous job was 38 minutes. Recommend continuing to schedule
+Greenline visits in the morning when bay door traffic is lighter.
+
+==============================================================================
+END OF REPORT
+==============================================================================
