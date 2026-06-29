@@ -24,8 +24,6 @@ The result is the same speed gain a business gets from generic AI tools, with th
 
 ## Design decisions
 
-A few of the architectural choices are worth calling out, because they're the difference between a tutorial RAG app and something a regulated business could actually operate.
-
 **Local embeddings instead of OpenAI's embedding API.** The system uses `sentence-transformers` running locally rather than `text-embedding-3-small`. Document content never leaves the host for the embedding step. Only the LLM call (which uses an OpenAI-compatible API) sends data out, and even that can be swapped to a local Ollama or vLLM endpoint without changing the application code. For businesses where document privacy matters more than embedding quality, this is the right tradeoff.
 
 **Human approval is in the critical path.** AI does not take action. AI proposes actions, attaches citations, and creates `review_items` with `status: open`. A human reviews and approves. Only then does the backend fire a webhook to n8n. This adds latency. It also eliminates the failure mode where a confidently-wrong AI output triggers a real-world consequence — the largest barrier to enterprise AI adoption right now.
